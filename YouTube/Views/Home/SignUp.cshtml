@@ -1,0 +1,36 @@
+﻿@model YouTube.Entities.User
+
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<h2>Sign Up</h2>
+<form>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="inputNickname">Nickname</label>
+        <input type="text" class="form-control" id="inputNickname" placeholder="Enter nickname">
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="inputBirthday">Date of Birth</label>
+        <input type="date" class="form-control" id="inputBirthday">
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+    </div>
+    
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-danger">Sign Up</button>
+    <button type="button" class="btn btn-light" onclick="window.history.back();">Back</button>
+</form>

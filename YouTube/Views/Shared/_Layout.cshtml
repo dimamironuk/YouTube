@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - YouTube</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/YouTube.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">YouTube</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <form class="d-flex search-bar mb-2 mb-lg-0">
+                        <input class="form-control me-2 search-input" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn search-button" type="submit">Search</button>
+                    </form>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link">Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="SignUp">Sign up</a>
+                        </li>
+                    </ul>
+                    <img src="avatar.png" alt="User Avatar" class="avatar ms-2">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="sidebar">
+        <button class="btn btn-danger w-100 mb-2" onclick="window.location.href='/'">Home</button>
+        <button class="btn btn-danger w-100 mb-2">Subscriptions</button>
+        <button class="btn btn-danger w-100 mb-2">You</button>
+    </div>
+    <div class="main-content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container">
+            &copy; 2024 - YouTube - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
