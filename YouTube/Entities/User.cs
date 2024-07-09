@@ -8,5 +8,7 @@
         public string Email { get; set; }
         public string? AvatarUrl { get; set; }
         public DateTime Birthday { get; set; }
+
+        public ICollection<Video> Videos { get; set; }
     }
 }

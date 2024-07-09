@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using YouTube.Data;
 using YouTube.Entities;
@@ -8,19 +9,13 @@ namespace YouTube.Controllers
 {
     public class HomeController : Controller
     {
-        private YouTubeDbContext ctx = new YouTubeDbContext();
         public HomeController()
         {
         }
 
         public IActionResult Index()
         {
-            var users = ctx.Users.ToList();
-            return View(users);
-        }
-
-        public ActionResult SignUp()
-        {
+           
             return View();
         }
 

@@ -1,0 +1,33 @@
+﻿@using YouTube.Entities
+@model List<Video>
+<h1>Video List</h1>
+
+<table class="table admin-video-table">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var video in Model)
+        {
+            <tr>
+                <th scope="row">@video.Id</th>
+                <td>@video.User.Nicname</td>
+                <td>@video.Title</td>
+                <td>@video.Description</td>
+                <td>
+                    <a asp-controller="Video" asp-action="Delete" asp-route-id="@video.Id" type="button" class="btn btn-danger">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Count: @Model.Count</p>

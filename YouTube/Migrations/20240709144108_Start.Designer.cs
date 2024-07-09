@@ -12,7 +12,7 @@ using YouTube.Data;
 namespace YouTube.Migrations
 {
     [DbContext(typeof(YouTubeDbContext))]
-    [Migration("20240709141728_Start")]
+    [Migration("20240709144108_Start")]
     partial class Start
     {
         /// <inheritdoc />
@@ -136,6 +136,119 @@ namespace YouTube.Migrations
                             Name = "Isabella Lopez",
                             Nicname = "IsabellaLopez"
                         });
+                });
+
+            modelBuilder.Entity("YouTube.Entities.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Videos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "A beginner's guide to C#.",
+                            Title = "Introduction to C#",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Deep dive into Java programming.",
+                            Title = "Advanced Java Programming",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Everything you need to know about JavaScript.",
+                            Title = "JavaScript Essentials",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Using Python for data analysis and machine learning.",
+                            Title = "Python for Data Science",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Building modern web applications with React.",
+                            Title = "Web Development with React",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Learn how to manage databases using SQL.",
+                            Title = "Database Management with SQL",
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "An introduction to cybersecurity principles.",
+                            Title = "Cybersecurity Basics",
+                            UserId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Creating mobile applications for Android and iOS.",
+                            Title = "Mobile App Development",
+                            UserId = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Understanding cloud computing with AWS.",
+                            Title = "Cloud Computing with AWS",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Exploring AI and machine learning concepts.",
+                            Title = "Artificial Intelligence and Machine Learning",
+                            UserId = 10
+                        });
+                });
+
+            modelBuilder.Entity("YouTube.Entities.Video", b =>
+                {
+                    b.HasOne("YouTube.Entities.User", "User")
+                        .WithMany("Videos")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("YouTube.Entities.User", b =>
+                {
+                    b.Navigation("Videos");
                 });
 #pragma warning restore 612, 618
         }

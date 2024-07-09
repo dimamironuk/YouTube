@@ -47,18 +47,17 @@ body {
 }
 
 .search-button {
-    background-color: #dc3545; /* Червоний колір */
-    border: 1px solid #dc3545; /* Червоний колір */
+    background-color: #dc3545;
+    border: 1px solid #dc3545; 
     border-radius: 2px;
     padding: 6px 12px;
-    color: #fff; /* Білий текст */
+    color: #fff; 
 }
 
     .search-button:hover {
-        background-color: #c82333; /* Трохи темніший червоний при наведенні */
+        background-color: #c82333; 
         border-color: #c82333;
     }
-
 .avatar {
     width: 32px;
     height: 32px;
@@ -115,3 +114,4 @@ main {
         background-color: #c82333;
         border-color: #c82333;
     }
+

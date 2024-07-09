@@ -28,7 +28,7 @@ namespace YouTube
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Video}/{action=Index}/{id?}");
 
             app.Run();
         }

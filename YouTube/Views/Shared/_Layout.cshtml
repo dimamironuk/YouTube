@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - YouTube</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/YouTube.styles.css" asp-append-version="true" />
 </head>
@@ -26,7 +27,7 @@
                             <a class="nav-link">Sign in</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="SignUp">Sign up</a>
+                            <a class="nav-link" asp-controller="User" asp-action="SignUp">Sign up</a>
                         </li>
                     </ul>
                     <img src="avatar.png" alt="User Avatar" class="avatar ms-2">
@@ -35,8 +36,8 @@
         </nav>
     </header>
     <div class="sidebar">
-        <button class="btn btn-danger w-100 mb-2" onclick="window.location.href='/'">Home</button>
-        <button class="btn btn-danger w-100 mb-2">Subscriptions</button>
+        <a class="btn btn-danger w-100 mb-2" asp-controller="Video" asp-action="Index">Home</a>
+        <a class="btn btn-danger w-100 mb-2" asp-controller="User" asp-action="Index">Subscriptions</a>
         <button class="btn btn-danger w-100 mb-2">You</button>
     </div>
     <div class="main-content">
@@ -46,7 +47,7 @@
     </div>
     <footer class="border-top footer text-muted mt-5">
         <div class="container">
-            &copy; 2024 - YouTube - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">Privacy</a>
+            &copy; 2024 - YouTube - <a asp-area="" class="text-white">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
