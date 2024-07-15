@@ -1,33 +1,30 @@
-﻿@using YouTube.Entities
-@model List<Video>
+﻿@model List<YouTube.Entities.Video>
+@using System.Globalization
+
 <h1>Video List</h1>
 
-<table class="table admin-video-table">
-    <thead>
-        <tr class="table-dark">
-            <th scope="col">#</th>
-            <th scope="col">User</th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var video in Model)
-        {
-            <tr>
-                <th scope="row">@video.Id</th>
-                <td>@video.User.Nicname</td>
-                <td>@video.Title</td>
-                <td>@video.Description</td>
-                <td>
+<div class="row">
+    @foreach (var video in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video controls class="embed-responsive-item">
+                        <source src="https://tortuga.wtf/vod/1749" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@video.Title</h5>
+                    <p class="card-text">Author: @video.User.Nickname</p>
+                    <p class="card-text">Published: @video.DateOfPublication.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</p>
                     <a asp-controller="Video" asp-action="Delete" asp-route-id="@video.Id" type="button" class="btn btn-danger">
-                        <i class="bi bi-trash3"></i>
+                        <i class="bi bi-trash3"></i> Delete
                     </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 <p>Count: @Model.Count</p>

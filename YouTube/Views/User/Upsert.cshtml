@@ -1,0 +1,103 @@
+﻿@{
+    var create = ViewBag.CreateMode;
+    ViewBag.Title = create ? "Sign Up" : "Edit";
+}
+@model User
+<style>
+    .avatar-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        cursor: pointer;
+    }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .file-input {
+        display: none;
+    }
+
+    .invalid-feedback {
+        display: none;
+        color: red;
+    }
+
+    .is-invalid ~ .invalid-feedback {
+        display: block;
+    }
+</style>
+
+<h2>@ViewBag.Title</h2>
+<form enctype="multipart/form-data" method="post" asp-action="@(create ? "SignUp" : "Edit")">
+    <div class="form-group">
+        <label for="inputAvatar">Avatar URL</label>
+        <input asp-for="AvatarUrl" type="text" class="form-control" id="inputAvatar" placeholder="Enter Avatar Url" >
+        <span class="small text-danger" asp-validation-for="AvatarUrl"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input asp-for="Name" type="text" class="form-control" id="inputName" placeholder="Enter name">
+        <span class="small text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="inputNickname">Nickname</label>
+        <input asp-for="Nickname" type="text" class="form-control" id="inputNickname" placeholder="Enter nickname">
+        <span class="small text-danger" asp-validation-for="Nickname"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail">Email address</label>
+        <input asp-for="Email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+        <span class="small text-danger" asp-validation-for="Email"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="inputBirthday">Date of Birth</label>
+        <input asp-for="Birthday" type="date" class="form-control" id="inputBirthday">
+        <span class="small text-danger" asp-validation-for="Birthday"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="inputPassword">Password</label>
+        @if (create)
+        {
+            <input asp-for="Password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+        }
+        else
+        {
+            <input asp-for="Password" type="text" class="form-control" id="inputPassword" placeholder="Password">
+        }
+        <span class="small text-danger" asp-validation-for="Password"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <input type="checkbox" id="checkShowPassword" onchange="togglePasswordVisibility()">
+        <label class="form-check-label" for="checkShowPassword">Show Password</label>
+    </div>
+
+    <button type="submit" class="btn btn-danger" id="btnSignUp">@(create ? "Sign Up" : "Edit")</button>
+    <button type="button" class="btn btn-dark" onclick="window.history.back();">Back</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function togglePasswordVisibility() {
+            let passwordInput = document.getElementById('inputPassword');
+            let checkbox = document.getElementById('checkShowPassword');
+
+            passwordInput.type = checkbox.checked ? 'text' : 'password';
+        }
+    </script>
+}

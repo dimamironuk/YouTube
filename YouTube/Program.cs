@@ -1,3 +1,5 @@
+using FluentValidation;
+using YouTube.Validations;
 namespace YouTube
 {
     public class Program
@@ -8,7 +10,7 @@ namespace YouTube
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

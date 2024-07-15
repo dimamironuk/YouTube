@@ -12,8 +12,8 @@ using YouTube.Data;
 namespace YouTube.Migrations
 {
     [DbContext(typeof(YouTubeDbContext))]
-    [Migration("20240709144108_Start")]
-    partial class Start
+    [Migration("20240711190101_NewVideo")]
+    partial class NewVideo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,11 @@ namespace YouTube.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nicname")
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -62,7 +66,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
                             Name = "John Doe",
-                            Nicname = "JohnDoe"
+                            Nickname = "JohnDoe",
+                            Password = "123456"
                         },
                         new
                         {
@@ -70,7 +75,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1985, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
                             Name = "Jane Smith",
-                            Nicname = "JaneSmith"
+                            Nickname = "JaneSmith",
+                            Password = "qwerty"
                         },
                         new
                         {
@@ -78,7 +84,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1988, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "michael.brown@example.com",
                             Name = "Michael Brown",
-                            Nicname = "MichaelBrown"
+                            Nickname = "MichaelBrown",
+                            Password = "221002"
                         },
                         new
                         {
@@ -86,7 +93,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1995, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emily.johnson@example.com",
                             Name = "Emily Johnson",
-                            Nicname = "EmilyJohnson"
+                            Nickname = "EmilyJohnson",
+                            Password = "school1"
                         },
                         new
                         {
@@ -94,7 +102,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1992, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "william.wilson@example.com",
                             Name = "William Wilson",
-                            Nicname = "WilliamWilson"
+                            Nickname = "WilliamWilson",
+                            Password = "412512"
                         },
                         new
                         {
@@ -102,7 +111,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1987, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "olivia.davis@example.com",
                             Name = "Olivia Davis",
-                            Nicname = "OliviaDavis"
+                            Nickname = "OliviaDavis",
+                            Password = "satq24"
                         },
                         new
                         {
@@ -110,7 +120,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1993, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "james.miller@example.com",
                             Name = "James Miller",
-                            Nicname = "JamesMiller"
+                            Nickname = "JamesMiller",
+                            Password = "rq24ar"
                         },
                         new
                         {
@@ -118,7 +129,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1983, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sophia.martinez@example.com",
                             Name = "Sophia Martinez",
-                            Nicname = "SophiaMartinez"
+                            Nickname = "SophiaMartinez",
+                            Password = "52356"
                         },
                         new
                         {
@@ -126,7 +138,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1991, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "benjamin.garcia@example.com",
                             Name = "Benjamin Garcia",
-                            Nicname = "BenjaminGarcia"
+                            Nickname = "BenjaminGarcia",
+                            Password = "rEe24"
                         },
                         new
                         {
@@ -134,7 +147,8 @@ namespace YouTube.Migrations
                             Birthday = new DateTime(1989, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "isabella.lopez@example.com",
                             Name = "Isabella Lopez",
-                            Nicname = "IsabellaLopez"
+                            Nickname = "IsabellaLopez",
+                            Password = "rw0wrq"
                         });
                 });
 
@@ -145,6 +159,9 @@ namespace YouTube.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateOfPublication")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -166,13 +183,15 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "A beginner's guide to C#.",
+                            DateOfPublication = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A beginner's guide to C#",
                             Title = "Introduction to C#",
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
+                            DateOfPublication = new DateTime(2023, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Deep dive into Java programming.",
                             Title = "Advanced Java Programming",
                             UserId = 2
@@ -180,6 +199,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 3,
+                            DateOfPublication = new DateTime(2023, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Everything you need to know about JavaScript.",
                             Title = "JavaScript Essentials",
                             UserId = 2
@@ -187,6 +207,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 4,
+                            DateOfPublication = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Using Python for data analysis and machine learning.",
                             Title = "Python for Data Science",
                             UserId = 5
@@ -194,6 +215,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 5,
+                            DateOfPublication = new DateTime(2023, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Building modern web applications with React.",
                             Title = "Web Development with React",
                             UserId = 1
@@ -201,6 +223,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 6,
+                            DateOfPublication = new DateTime(2023, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Learn how to manage databases using SQL.",
                             Title = "Database Management with SQL",
                             UserId = 6
@@ -208,6 +231,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 7,
+                            DateOfPublication = new DateTime(2023, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "An introduction to cybersecurity principles.",
                             Title = "Cybersecurity Basics",
                             UserId = 7
@@ -215,6 +239,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 8,
+                            DateOfPublication = new DateTime(2023, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Creating mobile applications for Android and iOS.",
                             Title = "Mobile App Development",
                             UserId = 8
@@ -222,6 +247,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 9,
+                            DateOfPublication = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Understanding cloud computing with AWS.",
                             Title = "Cloud Computing with AWS",
                             UserId = 5
@@ -229,6 +255,7 @@ namespace YouTube.Migrations
                         new
                         {
                             Id = 10,
+                            DateOfPublication = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Exploring AI and machine learning concepts.",
                             Title = "Artificial Intelligence and Machine Learning",
                             UserId = 10
