@@ -1,4 +1,5 @@
 using FluentValidation;
+using YouTube.MapperProfiles;
 using YouTube.Validations;
 namespace YouTube
 {
@@ -11,6 +12,8 @@ namespace YouTube
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
+
+            builder.Services.AddAutoMapper(typeof(AppProfile));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

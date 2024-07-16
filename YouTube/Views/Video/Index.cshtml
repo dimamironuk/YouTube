@@ -1,4 +1,4 @@
-﻿@model List<YouTube.Entities.Video>
+﻿@model List<VideoDto>
 @using System.Globalization
 
 <h1>Video List</h1>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">@video.Title</h5>
-                    <p class="card-text">Author: @video.User.Nickname</p>
+                    <p class="card-text">Author: @video.UserNickname</p>
                     <p class="card-text">Published: @video.DateOfPublication.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</p>
                     <a asp-controller="Video" asp-action="Delete" asp-route-id="@video.Id" type="button" class="btn btn-danger">
                         <i class="bi bi-trash3"></i> Delete

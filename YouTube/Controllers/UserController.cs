@@ -1,32 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using YouTube.Data;
+using YouTube.Dtos;
 using YouTube.Entities;
-using YouTube.Models;
 
 namespace YouTube.Controllers
 {
     public class UserController : Controller
     {
         private YouTubeDbContext ctx = new YouTubeDbContext();
+        private readonly IMapper mapper;
+        public UserController(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
 
         public IActionResult Index()
         {
             var users = ctx.Users.ToList();
 
-
-            return View(users);
+            return View(mapper.Map<List<UserDto>>(users));
         }
         [HttpGet]
         public IActionResult SignUp()
         {
             var users = ctx.Users.ToList();
-            ViewData["Users"] = users;
+            ViewData["Users"] = mapper.Map<List<UserDto>>(users);
             ViewBag.CreateMode = true;
             return View("Upsert");
         }
 
         [HttpPost]
-        public IActionResult SignUp(User model)
+        public IActionResult SignUp(UserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -34,7 +39,7 @@ namespace YouTube.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Users.Add(model);
+            ctx.Users.Add(mapper.Map<User>(model));
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
@@ -43,9 +48,9 @@ namespace YouTube.Controllers
         public IActionResult SignIn()
         {
             var users = ctx.Users.ToList();
-            return View(users);
+            return View(mapper.Map<List<UserDto>>(users));
         }
-        /*[HttpPost]
+        [HttpPost]
         public IActionResult SignIn(string email, string password)
         {
             var user = ctx.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
@@ -61,7 +66,7 @@ namespace YouTube.Controllers
                 ViewBag.ErrorMessage = "Invalid email or password";
                 return View();
             }
-        }*/
+        }
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -70,10 +75,10 @@ namespace YouTube.Controllers
             if (user == null) return NotFound();
 
             ViewBag.CreateMode = false;
-            return View("Upsert", user);
+            return View("Upsert", mapper.Map<UserDto>(user));
         }
         [HttpPost]
-        public IActionResult Edit(User model)
+        public IActionResult Edit(UserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +86,7 @@ namespace YouTube.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Users.Update(model);
+            ctx.Users.Update(mapper.Map<User>(model));
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
@@ -93,7 +98,7 @@ namespace YouTube.Controllers
 
             if (user == null) return NotFound();
 
-            ctx.Users.Remove(user);
+            ctx.Users.Remove(mapper.Map<User>(user));
             ctx.SaveChanges();
 
             return RedirectToAction("Index");

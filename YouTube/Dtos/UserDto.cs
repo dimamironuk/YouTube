@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace YouTube.Entities
+﻿namespace YouTube.Dtos
 {
-    public class User
+    public class UserDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nickname { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string? AvatarUrl { get; set; }
         public DateTime Birthday { get; set; }
-        public ICollection<Video>? Videos { get; set; }
     }
 }
-
