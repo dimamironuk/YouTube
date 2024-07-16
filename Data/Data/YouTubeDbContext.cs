@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using YouTube.Entities;
-
-namespace YouTube.Data
+using Data.Entities;
+ 
+namespace Data.Data
 {
     public class YouTubeDbContext : DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using YouTube.Dtos;
-using YouTube.Entities;
+using Core.Dtos;
+using Data.Entities;
 
 namespace YouTube.MapperProfiles
 {

@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using YouTube.Data;
-using YouTube.Entities;
+using Data.Entities;
 using YouTube.Models;
 
 namespace YouTube.Controllers

@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using YouTube.Data;
-using YouTube.Entities;
+using Data.Data;
+using Data.Entities;
 
 namespace YouTube.Validations
 {

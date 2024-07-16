@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using YouTube.Data;
-using YouTube.Dtos;
-using YouTube.Entities;
+using Data.Data;
+using Core.Dtos;
+using Data.Entities;
 
 namespace YouTube.Controllers
 {
