@@ -4,6 +4,7 @@ using Data.Data;
 using Core.Dtos;
 using Data.Entities;
 using YouTube.Extensions;
+using Newtonsoft.Json;
 
 namespace YouTube.Controllers
 {
@@ -19,10 +20,11 @@ namespace YouTube.Controllers
 
         public IActionResult Index()
         {
-            var ids = HttpContext.Session.Get<List<int>>("UserId") ?? new List<int>();
+            var ids = Request.Cookies["UserId"];
+            var userIdList = ids != null ? JsonConvert.DeserializeObject<List<int>>(ids) : new List<int>();
 
-            var user = ctx.Users.Where(x => ids.Contains(x.Id));
-            if (user != null) return View(mapper.Map<UserDto>(user.ToList()[0]));
+            var user = ctx.Users.Where(x => userIdList.Contains(x.Id));
+            if (user.Any()) return View(mapper.Map<UserDto>(user.First()));
             else return RedirectToAction("SignIn");
         }
         public IActionResult Subscriptions()
@@ -69,9 +71,15 @@ namespace YouTube.Controllers
 
             if (user != null)
             {
-                var ids = new List<int> { user.Id };
+                var userIdList = new List<int> { user.Id };
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(10),
+                    HttpOnly = true,
+                    IsEssential = true
+                };
 
-                HttpContext.Session.Set("UserId", ids);
+                Response.Cookies.Append("UserId", JsonConvert.SerializeObject(userIdList), cookieOptions);
                 return RedirectToAction("Index");
             }
             else
