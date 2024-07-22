@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Data.Data;
 using Core.Dtos;
 using Data.Entities;
+using YouTube.Extensions;
 
 namespace YouTube.Controllers
 {
@@ -10,12 +11,21 @@ namespace YouTube.Controllers
     {
         private YouTubeDbContext ctx = new YouTubeDbContext();
         private readonly IMapper mapper;
+
         public UserController(IMapper mapper)
         {
             this.mapper = mapper;
         }
 
         public IActionResult Index()
+        {
+            var ids = HttpContext.Session.Get<List<int>>("UserId") ?? new List<int>();
+
+            var user = ctx.Users.Where(x => ids.Contains(x.Id));
+            if (user != null) return View(mapper.Map<UserDto>(user.ToList()[0]));
+            else return RedirectToAction("SignIn");
+        }
+        public IActionResult Subscriptions()
         {
             var users = ctx.Users.ToList();
 
@@ -45,11 +55,13 @@ namespace YouTube.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult SignIn()
         {
             var users = ctx.Users.ToList();
             return View(mapper.Map<List<UserDto>>(users));
         }
+
         [HttpPost]
         public IActionResult SignIn(string email, string password)
         {
@@ -57,16 +69,18 @@ namespace YouTube.Controllers
 
             if (user != null)
             {
-                HttpContext.Session.SetString("UserId", user.Id.ToString());
+                var ids = new List<int> { user.Id };
 
-                return RedirectToAction("Profile", new { id = user.Id });
+                HttpContext.Session.Set("UserId", ids);
+                return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.ErrorMessage = "Invalid email or password";
-                return View();
+                var users = ctx.Users.ToList();
+                return View(mapper.Map<List<UserDto>>(users));
             }
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -77,6 +91,7 @@ namespace YouTube.Controllers
             ViewBag.CreateMode = false;
             return View("Upsert", mapper.Map<UserDto>(user));
         }
+
         [HttpPost]
         public IActionResult Edit(UserDto model)
         {

@@ -14,7 +14,17 @@ namespace YouTube
             builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 
             builder.Services.AddAutoMapper(typeof(AppProfile));
+            builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -31,6 +41,8 @@ namespace YouTube
 
             app.UseAuthorization();
 
+            app.UseSession();
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Video}/{action=Index}/{id?}");

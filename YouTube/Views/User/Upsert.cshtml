@@ -38,25 +38,25 @@
 <form enctype="multipart/form-data" method="post" asp-action="@(create ? "SignUp" : "Edit")">
     <div class="form-group">
         <label for="inputAvatar">Avatar URL</label>
-        <input asp-for="AvatarUrl" type="text" class="form-control" id="inputAvatar" placeholder="Enter Avatar Url" >
+        <input asp-for="AvatarUrl" type="text" class="form-control" placeholder="Enter Avatar Url" >
         <span class="small text-danger" asp-validation-for="AvatarUrl"></span>
     </div>
 
     <div class="form-group">
         <label for="inputName">Name</label>
-        <input asp-for="Name" type="text" class="form-control" id="inputName" placeholder="Enter name">
+        <input asp-for="Name" type="text" class="form-control" placeholder="Enter name">
         <span class="small text-danger" asp-validation-for="Name"></span>
     </div>
 
     <div class="form-group">
         <label for="inputNickname">Nickname</label>
-        <input asp-for="Nickname" type="text" class="form-control" id="inputNickname" placeholder="Enter nickname">
+        <input asp-for="Nickname" type="text" class="form-control" placeholder="Enter nickname">
         <span class="small text-danger" asp-validation-for="Nickname"></span>
     </div>
 
     <div class="form-group">
         <label for="inputEmail">Email address</label>
-        <input asp-for="Email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+        <input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         <div class="invalid-feedback">Please enter a valid email address.</div>
         <span class="small text-danger" asp-validation-for="Email"></span>
@@ -64,7 +64,7 @@
 
     <div class="form-group">
         <label for="inputBirthday">Date of Birth</label>
-        <input asp-for="Birthday" type="date" class="form-control" id="inputBirthday">
+        <input asp-for="Birthday" type="date" class="form-control">
         <span class="small text-danger" asp-validation-for="Birthday"></span>
     </div>
 
@@ -86,7 +86,7 @@
         <label class="form-check-label" for="checkShowPassword">Show Password</label>
     </div>
 
-    <button type="submit" class="btn btn-danger" id="btnSignUp">@(create ? "Sign Up" : "Edit")</button>
+    <button type="submit" class="btn btn-danger">@(create ? "Sign Up" : "Edit")</button>
     <button type="button" class="btn btn-dark" onclick="window.history.back();">Back</button>
 </form>
 
