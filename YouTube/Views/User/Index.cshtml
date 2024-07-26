@@ -1,4 +1,7 @@
 ﻿@model UserDto
+@{
+    var videos = ViewBag.Videos;
+}
 
 <h1>@Model.Nickname</h1>
 
@@ -18,13 +21,47 @@
                 <p><strong>Password:</strong> @Model.Password</p>
             </div>
         </div>
-        <div class="mt-3">
-            <a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">
-                <i class="bi bi-pencil-square"></i> Edit
-            </a>
-            <a asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
-                <i class="bi bi-trash3"></i> Delete
-            </a>
+        <div class="d-flex justify-content-between mt-3">
+            <div>
+                <a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </a>
+                <a asp-controller="User" asp-action="Exit" class="btn btn-warning">
+                    <i class="bi bi-box-arrow-left"></i> Exit
+                </a>
+                <a asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                    <i class="bi bi-trash3"></i> Delete
+                </a>
+            </div>
+            <div>
+                <a asp-controller="Video" asp-action="AddVideo" asp-route-id="@Model.Id" class="btn btn-success">
+                    <i class="bi bi-plus"></i> Create new video
+                </a>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+    @foreach (var video in videos)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video controls class="embed-responsive-item">
+                        <source src="https://tortuga.wtf/vod/1749" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@video.Title</h5>
+                    <p class="card-text">Author: @video.UserNickname</p>
+                    <p class="card-text">Published: @video.DateOfPublication.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</p>
+                    <a asp-controller="Video" asp-action="Delete" asp-route-id="@video.Id" type="button" class="btn btn-danger">
+                        <i class="bi bi-trash3"></i> Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

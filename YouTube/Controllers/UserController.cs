@@ -24,8 +24,16 @@ namespace YouTube.Controllers
             var userIdList = ids != null ? JsonConvert.DeserializeObject<List<int>>(ids) : new List<int>();
 
             var user = ctx.Users.Where(x => userIdList.Contains(x.Id));
+            var videos = ctx.Videos.Where(x => x.UserId == user.First().Id);
+            ViewBag.Videos = mapper.Map< List<VideoDto>>(videos);
             if (user.Any()) return View(mapper.Map<UserDto>(user.First()));
             else return RedirectToAction("SignIn");
+        }
+        public IActionResult Exit()
+        {
+            Response.Cookies.Delete("UserId");
+
+            return RedirectToAction("Index", "Video");
         }
         public IActionResult Subscriptions()
         {
