@@ -4,28 +4,26 @@ using Microsoft.EntityFrameworkCore;
 using Data.Data;
 using Core.Dtos;
 using Data.Entities;
+using YouTube.Services;
 
 namespace YouTube.Controllers
 {
     public class VideoController : Controller
     {
-        private YouTubeDbContext ctx = new YouTubeDbContext();
-        private readonly IMapper mapper;
-        public VideoController(IMapper mapper)
+        private readonly VideoService videoService;
+
+        public VideoController(VideoService videoService)
         {
-            this.mapper = mapper;
+            this.videoService = videoService;
         }
         public IActionResult Index()
         {
-            var videos = ctx.Videos.Include(x => x.User).ToList();
-
-            return View(mapper.Map<List<VideoDto>>(videos));
+            return View(videoService.GetVideoDtos());
         }
         [HttpGet]
         public IActionResult AddVideo()
         {
-            var videos = ctx.Users.ToList();
-            ViewData["Videos"] = mapper.Map<List<VideoDto>>(videos);
+            ViewData["Videos"] = videoService.GetVideoDtos();
             return View("Upsert");
         }
 
@@ -38,20 +36,12 @@ namespace YouTube.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Videos.Add(mapper.Map<Video>(model));
-            ctx.SaveChanges();
-
+            videoService.AddVideo(model);
             return RedirectToAction("Index","User");
         }
         public IActionResult Delete(int id)
         {
-            var video = ctx.Videos.Find(id);
-
-            if (video == null) return NotFound();
-
-            ctx.Videos.Remove(mapper.Map<Video>(video));
-            ctx.SaveChanges();
-
+            videoService.RemuveVideo(id);
             return RedirectToAction("Index");
         }
     }

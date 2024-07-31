@@ -1,5 +1,9 @@
+using Data.Data;
 using FluentValidation;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using YouTube.MapperProfiles;
+using YouTube.Services;
 using YouTube.Validations;
 namespace YouTube
 {
@@ -9,11 +13,19 @@ namespace YouTube
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            string? connectionString = builder.Configuration.GetConnectionString("LocalDb");
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<YouTubeDbContext>(options =>
+                options.UseSqlServer(connectionString)
+            );
+
             builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 
             builder.Services.AddAutoMapper(typeof(AppProfile));
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddDistributedMemoryCache();
 
             builder.Services.AddSession(options =>
@@ -23,6 +35,8 @@ namespace YouTube
                 options.Cookie.IsEssential = true;
             });
 
+            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<VideoService>();
 
             var app = builder.Build();
 

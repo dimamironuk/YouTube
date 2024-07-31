@@ -1,33 +1,31 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Data.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using Core.Dtos;
-using Data.Entities;
-using YouTube.Extensions;
 using Newtonsoft.Json;
+using YouTube.Services;
 
 namespace YouTube.Controllers
 {
     public class UserController : Controller
     {
-        private YouTubeDbContext ctx = new YouTubeDbContext();
-        private readonly IMapper mapper;
-
-        public UserController(IMapper mapper)
+        private readonly UserService userService;
+        private readonly VideoService videoService;
+        public UserController(UserService userService, VideoService videoService)
         {
-            this.mapper = mapper;
+            this.userService = userService;
+            this.videoService = videoService;
         }
 
         public IActionResult Index()
         {
-            var ids = Request.Cookies["UserId"];
-            var userIdList = ids != null ? JsonConvert.DeserializeObject<List<int>>(ids) : new List<int>();
+            var idCookie = Request.Cookies["UserId"];
+            var id = JsonConvert.DeserializeObject<List<int>>(idCookie ?? "[]");
 
-            var user = ctx.Users.Where(x => userIdList.Contains(x.Id));
-            var videos = ctx.Videos.Where(x => x.UserId == user.First().Id);
-            ViewBag.Videos = mapper.Map< List<VideoDto>>(videos);
-            if (user.Any()) return View(mapper.Map<UserDto>(user.First()));
-            else return RedirectToAction("SignIn");
+            var user = userService.GetUserDto(id.Count != 0 ? id.First() : -1);
+
+            var videos = user != null ? videoService.GetVideoDtos().Where(x => x.UserId == user.Id) : null;
+            ViewBag.Videos = videos;
+
+            return user == null ? RedirectToAction("SignIn") : View(user);
         }
         public IActionResult Exit()
         {
@@ -37,15 +35,13 @@ namespace YouTube.Controllers
         }
         public IActionResult Subscriptions()
         {
-            var users = ctx.Users.ToList();
-
-            return View(mapper.Map<List<UserDto>>(users));
+            return View(userService.GetUserDtos());
         }
         [HttpGet]
         public IActionResult SignUp()
         {
-            var users = ctx.Users.ToList();
-            ViewData["Users"] = mapper.Map<List<UserDto>>(users);
+            var users = userService.GetUserDtos();
+            ViewData["Users"] = users;
             ViewBag.CreateMode = true;
             return View("Upsert");
         }
@@ -59,8 +55,7 @@ namespace YouTube.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Users.Add(mapper.Map<User>(model));
-            ctx.SaveChanges();
+            userService.AddUser(model);
 
             return RedirectToAction("Index");
         }
@@ -68,14 +63,14 @@ namespace YouTube.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
-            var users = ctx.Users.ToList();
-            return View(mapper.Map<List<UserDto>>(users));
+            var users = userService.GetUserDtos();
+            return View(users);
         }
 
         [HttpPost]
         public IActionResult SignIn(string email, string password)
         {
-            var user = ctx.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var user = userService.GetUsers().FirstOrDefault(u => u.Email == email && u.Password == password);
 
             if (user != null)
             {
@@ -92,20 +87,20 @@ namespace YouTube.Controllers
             }
             else
             {
-                var users = ctx.Users.ToList();
-                return View(mapper.Map<List<UserDto>>(users));
+                var users = userService.GetUserDtos();
+                return View(users);
             }
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var user = ctx.Users.Find(id);
+            var user = userService.GetUserDtos().FirstOrDefault(u => u.Id == id);
 
             if (user == null) return NotFound();
 
             ViewBag.CreateMode = false;
-            return View("Upsert", mapper.Map<UserDto>(user));
+            return View("Upsert", user);
         }
 
         [HttpPost]
@@ -117,20 +112,14 @@ namespace YouTube.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Users.Update(mapper.Map<User>(model));
-            ctx.SaveChanges();
+            userService.EditUser(model);
 
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            var user = ctx.Users.Find(id);
-
-            if (user == null) return NotFound();
-
-            ctx.Users.Remove(mapper.Map<User>(user));
-            ctx.SaveChanges();
+            userService.RemoveUser(id);
 
             return RedirectToAction("Index");
         }

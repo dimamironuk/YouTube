@@ -7,11 +7,13 @@ namespace Data.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=YouTubeMvc;Integrated Security=True;");
-        }
+        public YouTubeDbContext() { }
+        public YouTubeDbContext(DbContextOptions options) : base(options) { }
+        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+         {
+             base.OnConfiguring(optionsBuilder);
+             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=YouTubeMvc;Integrated Security=True;");
+         }*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

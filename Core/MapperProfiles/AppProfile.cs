@@ -10,6 +10,8 @@ namespace YouTube.MapperProfiles
         {
             CreateMap<UserDto, User>().ReverseMap();
             CreateMap<VideoDto, Video>().ReverseMap();
+            CreateMap<UserDto, UserShortInfoDto>().ReverseMap();
+            CreateMap<User, UserShortInfoDto>().ReverseMap();
         }
     }
 }
