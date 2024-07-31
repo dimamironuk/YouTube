@@ -17,7 +17,7 @@ namespace Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0-preview.6.24327.4")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -163,12 +163,20 @@ namespace Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PreviewUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -182,80 +190,100 @@ namespace Data.Migrations
                             Id = 1,
                             DateOfPublication = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "A beginner's guide to C#",
+                            PreviewUrl = "https://static-cse.canva.com/blob/1633154/1600w-wK95f3XNRaM.53b81e59.jpg",
                             Title = "Introduction to C#",
-                            UserId = 1
+                            UserId = 1,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 2,
                             DateOfPublication = new DateTime(2023, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Deep dive into Java programming.",
+                            PreviewUrl = "https://marketplace.canva.com/EAFf5rfnPgA/1/0/1600w/canva-blue-modern-eye-catching-vlog-youtube-thumbnail-LEcp-BYepDU.jpg",
                             Title = "Advanced Java Programming",
-                            UserId = 2
+                            UserId = 2,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 3,
                             DateOfPublication = new DateTime(2023, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Everything you need to know about JavaScript.",
+                            PreviewUrl = "https://i0.wp.com/i.pinimg.com/originals/d4/94/76/d49476e6169ae02dd0eea882b1443586.jpg?resize=160,120",
                             Title = "JavaScript Essentials",
-                            UserId = 2
+                            UserId = 2,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 4,
                             DateOfPublication = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Using Python for data analysis and machine learning.",
+                            PreviewUrl = "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/125342479/original/7b112c248eb522d29016e1cca95a7ccd9cf50d6f/design-eye-catchy-youtube-thumbnail-in-2-hours.jpg",
                             Title = "Python for Data Science",
-                            UserId = 5
+                            UserId = 5,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 5,
                             DateOfPublication = new DateTime(2023, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Building modern web applications with React.",
+                            PreviewUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB-bmx9MFjFvH0p1MZzMU8fwYPAO-mzUhZM6di1tsXrzWfSdXyvJyr1Ry503HmyDnt8ns&usqp=CAU",
                             Title = "Web Development with React",
-                            UserId = 1
+                            UserId = 1,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 6,
                             DateOfPublication = new DateTime(2023, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Learn how to manage databases using SQL.",
+                            PreviewUrl = "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/163993931/original/bea1055dbfd13392ad4d291eae22fb9cd3a84484/design-amazing-youtube-thumbnail-in-3-hours.jpg",
                             Title = "Database Management with SQL",
-                            UserId = 6
+                            UserId = 6,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 7,
                             DateOfPublication = new DateTime(2023, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "An introduction to cybersecurity principles.",
+                            PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/pbdwbva4-WI/maxresdefault.jpg?resize=160,120",
                             Title = "Cybersecurity Basics",
-                            UserId = 7
+                            UserId = 7,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 8,
                             DateOfPublication = new DateTime(2023, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Creating mobile applications for Android and iOS.",
+                            PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/eftWmNzWbxk/maxresdefault.jpg?resize=160,120",
                             Title = "Mobile App Development",
-                            UserId = 8
+                            UserId = 8,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 9,
                             DateOfPublication = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Understanding cloud computing with AWS.",
+                            PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/8YbZuaBP9B8/maxresdefault.jpg?resize=160,120",
                             Title = "Cloud Computing with AWS",
-                            UserId = 5
+                            UserId = 5,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         },
                         new
                         {
                             Id = 10,
                             DateOfPublication = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Exploring AI and machine learning concepts.",
+                            PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/CJ3hfxxlF2Q/maxresdefault.jpg?resize=160,120",
                             Title = "Artificial Intelligence and Machine Learning",
-                            UserId = 10
+                            UserId = 10,
+                            VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us"
                         });
                 });
 
