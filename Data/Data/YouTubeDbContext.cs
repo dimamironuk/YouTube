@@ -19,16 +19,16 @@ namespace Data.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().HasData(new List<User>()
             {
-                new User { Id = 1, Nickname = "JohnDoe", Name = "John Doe", Email = "john.doe@example.com", Birthday = new DateTime(1990, 5, 15), AvatarUrl = null,Password = "123456" },
-                new User { Id = 2, Nickname = "JaneSmith", Name = "Jane Smith", Email = "jane.smith@example.com", Birthday = new DateTime(1985, 10, 25), AvatarUrl = null,Password = "qwerty" },
-                new User { Id = 3, Nickname = "MichaelBrown", Name = "Michael Brown", Email = "michael.brown@example.com", Birthday = new DateTime(1988, 3, 8), AvatarUrl = null,Password = "221002" },
-                new User { Id = 4, Nickname = "EmilyJohnson", Name = "Emily Johnson", Email = "emily.johnson@example.com", Birthday = new DateTime(1995, 7, 12), AvatarUrl = null,Password = "school1" },
-                new User { Id = 5, Nickname = "WilliamWilson", Name = "William Wilson", Email = "william.wilson@example.com", Birthday = new DateTime(1992, 9, 20), AvatarUrl = null,Password = "412512" },
-                new User { Id = 6, Nickname = "OliviaDavis", Name = "Olivia Davis", Email = "olivia.davis@example.com", Birthday = new DateTime(1987, 12, 3), AvatarUrl = null,Password = "satq24" },
-                new User { Id = 7, Nickname = "JamesMiller", Name = "James Miller", Email = "james.miller@example.com", Birthday = new DateTime(1993, 4, 18), AvatarUrl = null,Password = "rq24ar" },
-                new User { Id = 8, Nickname = "SophiaMartinez", Name = "Sophia Martinez", Email = "sophia.martinez@example.com", Birthday = new DateTime(1983, 6, 30), AvatarUrl = null,Password = "52356" },
-                new User { Id = 9, Nickname = "BenjaminGarcia", Name = "Benjamin Garcia", Email = "benjamin.garcia@example.com", Birthday = new DateTime(1991, 8, 7), AvatarUrl = null,Password = "rEe24" },
-                new User { Id = 10, Nickname = "IsabellaLopez", Name = "Isabella Lopez", Email = "isabella.lopez@example.com", Birthday = new DateTime(1989, 11, 22), AvatarUrl = null,Password = "rw0wrq" }
+                new User { Id = 1, Nickname = "JohnDoe", Name = "John Doe", Email = "john.doe@example.com", Birthday = new DateTime(1990, 5, 15), AvatarUrl = "https://www.cnet.com/a/img/resize/20d6844768bd3f5f0df41deee97897423bcaf3c5/hub/2021/11/03/3c2a7d79-770e-4cfa-9847-66b3901fb5d7/c09.jpg?auto=webp&fit=crop&height=1200&width=1200",Password = "123456" },
+                new User { Id = 2, Nickname = "JaneSmith", Name = "Jane Smith", Email = "jane.smith@example.com", Birthday = new DateTime(1985, 10, 25), AvatarUrl = "https://i.pinimg.com/236x/6f/0c/7d/6f0c7dd236a49fef3d2c7ad9def7f87c.jpg",Password = "qwerty" },
+                new User { Id = 3, Nickname = "MichaelBrown", Name = "Michael Brown", Email = "michael.brown@example.com", Birthday = new DateTime(1988, 3, 8), AvatarUrl = "https://i.pinimg.com/236x/ef/31/da/ef31da3aac21d75fede9d3ca00b8f14f.jpg",Password = "221002" },
+                new User { Id = 4, Nickname = "EmilyJohnson", Name = "Emily Johnson", Email = "emily.johnson@example.com", Birthday = new DateTime(1995, 7, 12), AvatarUrl = "https://i.pinimg.com/236x/5b/02/47/5b0247d140ff9659066d61fa63edc79a.jpg",Password = "school1" },
+                new User { Id = 5, Nickname = "WilliamWilson", Name = "William Wilson", Email = "william.wilson@example.com", Birthday = new DateTime(1992, 9, 20), AvatarUrl = "https://i.pinimg.com/236x/28/6d/91/286d914fd4f3739e4b063aaf7875a04a.jpg",Password = "412512" },
+                new User { Id = 6, Nickname = "OliviaDavis", Name = "Olivia Davis", Email = "olivia.davis@example.com", Birthday = new DateTime(1987, 12, 3), AvatarUrl = "https://i.pinimg.com/236x/b1/d8/db/b1d8dbf9167c52e0615adc13437f07bf.jpg",Password = "satq24" },
+                new User { Id = 7, Nickname = "JamesMiller", Name = "James Miller", Email = "james.miller@example.com", Birthday = new DateTime(1993, 4, 18), AvatarUrl = "https://i.pinimg.com/236x/f8/32/e9/f832e9eeb044c0724ed38d11a6fc3c52.jpg",Password = "rq24ar" },
+                new User { Id = 8, Nickname = "SophiaMartinez", Name = "Sophia Martinez", Email = "sophia.martinez@example.com", Birthday = new DateTime(1983, 6, 30), AvatarUrl = "https://i.pinimg.com/236x/74/a2/9b/74a29b1557ea388218519536143e3eee.jpg",Password = "52356" },
+                new User { Id = 9, Nickname = "BenjaminGarcia", Name = "Benjamin Garcia", Email = "benjamin.garcia@example.com", Birthday = new DateTime(1991, 8, 7), AvatarUrl = "https://cdn-0001.qstv.on.epicgames.com/spbduGeODldQXSaWaZ/image/landscape_comp.jpeg",Password = "rEe24" },
+                new User { Id = 10, Nickname = "IsabellaLopez", Name = "Isabella Lopez", Email = "isabella.lopez@example.com", Birthday = new DateTime(1989, 11, 22), AvatarUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Meme_Man_on_transparent_background.webp/316px-Meme_Man_on_transparent_background.webp.png",Password = "rw0wrq" }
             });
             modelBuilder.Entity<Video>().HasData(new List<Video>()
             {

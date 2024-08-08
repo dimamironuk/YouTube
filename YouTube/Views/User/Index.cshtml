@@ -1,6 +1,6 @@
 ﻿@model UserDto
 @{
-    //var videos = ViewBag.Videos;
+    var videos = ViewBag.Videos;
 }
 
 <h1>@Model.Nickname</h1>
@@ -42,26 +42,32 @@
     </div>
 </div>
 
-@* <div class="row">
+<div class="row">
     @foreach (var video in videos)
     {
         <div class="col-md-4 mb-4">
             <div class="card">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <video controls class="embed-responsive-item">
-                        <source src="https://tortuga.wtf/vod/1749" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+                <a href="@video.VideoUrl" target="_blank">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <img src="@video.PreviewUrl" class="card-img-top img-fluid video-preview" alt="Preview for @video.Title">
+                    </div>
+                </a>
                 <div class="card-body">
                     <h5 class="card-title">@video.Title</h5>
                     <p class="card-text">Author: @video.UserNickname</p>
                     <p class="card-text">Published: @video.DateOfPublication.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)</p>
-                    <a asp-controller="Video" asp-action="Delete" asp-route-id="@video.Id" type="button" class="btn btn-danger">
+                    @if (!string.IsNullOrEmpty(video.Description))
+                    {
+                        <p class="card-text">Description: @video.Description</p>
+                    }
+                    <a asp-controller="Video" asp-action="Delete" asp-route-id="@video.Id" class="btn btn-danger">
                         <i class="bi bi-trash3"></i> Delete
+                    </a>
+                    <a asp-controller="Video" asp-action="Edit" asp-route-id="@video.Id" class="btn btn-primary">
+                        <i class="bi bi-pencil-square"></i> Edit
                     </a>
                 </div>
             </div>
         </div>
     }
-</div> *@
+</div>

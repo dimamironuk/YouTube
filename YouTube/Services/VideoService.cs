@@ -2,7 +2,6 @@
 using Core.Dtos;
 using Data.Data;
 using Data.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace YouTube.Services
 {
@@ -24,7 +23,9 @@ namespace YouTube.Services
         }
         public List<VideoDto> GetVideoDtos()
         {
-            return mapper.Map<List<VideoDto>>(context.Videos.ToList());
+            var videoDtos = mapper.Map<List<VideoDto>>(context.Videos.ToList());
+            videoDtos.ForEach(video => video.UserNickname = context.Users.FirstOrDefault(u => u.Id == video.UserId).Nickname);
+            return videoDtos;
         }
 
         //GET
@@ -44,6 +45,13 @@ namespace YouTube.Services
         public void RemuveVideo(int id)
         {
             context.Videos.Remove(GetVideo(id));
+            context.SaveChanges();
+        }
+
+        //EDIT
+        public void EditVideo(VideoDto model)
+        {
+            context.Videos.Update(mapper.Map<Video>(model));
             context.SaveChanges();
         }
     }
