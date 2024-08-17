@@ -1,6 +1,6 @@
 ﻿@{
     var create = ViewBag.CreateMode;
-    var user = ViewBag.User;
+    var user = ViewBag.User as UserDto;
     ViewBag.Title = create ? "Create" : "Edit";
 }
 @model VideoDto

@@ -41,17 +41,13 @@ namespace YouTube.Controllers
             ViewBag.User = user;
             ViewData["Videos"] = videos;
 
-            return View("Upsert");
+            return View("Upsert", model);
         }
 
         [HttpPost]
         public IActionResult AddVideo(VideoDto model)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.CreateMode = true;
-                return View("Upsert", model);
-            }
+
             model.Id = null;
             videoService.AddVideo(model);
             return RedirectToAction("Index", "User");
