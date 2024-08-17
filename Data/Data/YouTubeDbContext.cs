@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Data.Entities;
- 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 namespace Data.Data
 {
-    public class YouTubeDbContext : DbContext
+    public class YouTubeDbContext : IdentityDbContext<User>
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
@@ -17,7 +18,7 @@ namespace Data.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasData(new List<User>()
+            /*modelBuilder.Entity<User>().HasData(new List<User>()
             {
                 new User { Id = 1, Nickname = "JohnDoe", Name = "John Doe", Email = "john.doe@example.com", Birthday = new DateTime(1990, 5, 15), AvatarUrl = "https://www.cnet.com/a/img/resize/20d6844768bd3f5f0df41deee97897423bcaf3c5/hub/2021/11/03/3c2a7d79-770e-4cfa-9847-66b3901fb5d7/c09.jpg?auto=webp&fit=crop&height=1200&width=1200",Password = "123456" },
                 new User { Id = 2, Nickname = "JaneSmith", Name = "Jane Smith", Email = "jane.smith@example.com", Birthday = new DateTime(1985, 10, 25), AvatarUrl = "https://i.pinimg.com/236x/6f/0c/7d/6f0c7dd236a49fef3d2c7ad9def7f87c.jpg",Password = "qwerty" },
@@ -28,9 +29,9 @@ namespace Data.Data
                 new User { Id = 7, Nickname = "JamesMiller", Name = "James Miller", Email = "james.miller@example.com", Birthday = new DateTime(1993, 4, 18), AvatarUrl = "https://i.pinimg.com/236x/f8/32/e9/f832e9eeb044c0724ed38d11a6fc3c52.jpg",Password = "rq24ar" },
                 new User { Id = 8, Nickname = "SophiaMartinez", Name = "Sophia Martinez", Email = "sophia.martinez@example.com", Birthday = new DateTime(1983, 6, 30), AvatarUrl = "https://i.pinimg.com/236x/74/a2/9b/74a29b1557ea388218519536143e3eee.jpg",Password = "52356" },
                 new User { Id = 9, Nickname = "BenjaminGarcia", Name = "Benjamin Garcia", Email = "benjamin.garcia@example.com", Birthday = new DateTime(1991, 8, 7), AvatarUrl = "https://cdn-0001.qstv.on.epicgames.com/spbduGeODldQXSaWaZ/image/landscape_comp.jpeg",Password = "rEe24" },
-                new User { Id = 10, Nickname = "IsabellaLopez", Name = "Isabella Lopez", Email = "isabella.lopez@example.com", Birthday = new DateTime(1989, 11, 22), AvatarUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Meme_Man_on_transparent_background.webp/316px-Meme_Man_on_transparent_background.webp.png",Password = "rw0wrq" }
-            });
-            modelBuilder.Entity<Video>().HasData(new List<Video>()
+                new User { Id = 10 Nickname = "IsabellaLopez", Name = "Isabella Lopez", Email = "isabella.lopez@example.com", Birthday = new DateTime(1989, 11, 22), AvatarUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Meme_Man_on_transparent_background.webp/316px-Meme_Man_on_transparent_background.webp.png",Password = "rw0wrq" }
+            });*/
+           /* modelBuilder.Entity<Video>().HasData(new List<Video>()
             {
                 new Video { Id = 1, UserId = 1, Title = "Introduction to C#", Description = "A beginner's guide to C#", DateOfPublication = new DateTime(2023, 5, 15), VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us",PreviewUrl = "https://static-cse.canva.com/blob/1633154/1600w-wK95f3XNRaM.53b81e59.jpg" },
                 new Video { Id = 2, UserId = 2, Title = "Advanced Java Programming", Description = "Deep dive into Java programming.", DateOfPublication = new DateTime(2023, 6, 20), VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us",PreviewUrl = "https://marketplace.canva.com/EAFf5rfnPgA/1/0/1600w/canva-blue-modern-eye-catching-vlog-youtube-thumbnail-LEcp-BYepDU.jpg" },
@@ -42,7 +43,7 @@ namespace Data.Data
                 new Video { Id = 8, UserId = 8, Title = "Mobile App Development", Description = "Creating mobile applications for Android and iOS.", DateOfPublication = new DateTime(2023, 12, 8), VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us",PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/eftWmNzWbxk/maxresdefault.jpg?resize=160,120" },
                 new Video { Id = 9, UserId = 5, Title = "Cloud Computing with AWS", Description = "Understanding cloud computing with AWS.", DateOfPublication = new DateTime(2024, 1, 5), VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us",PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/8YbZuaBP9B8/maxresdefault.jpg?resize=160,120" },
                 new Video { Id = 10, UserId = 10, Title = "Artificial Intelligence and Machine Learning", Description = "Exploring AI and machine learning concepts.", DateOfPublication = new DateTime(2024, 2, 14), VideoUrl = "https://www.microsoft.com/en-us/videoplayer-nocookie/embed/RWe8JU?pid=ocpVideo1&maskLevel=20&market=en-us",PreviewUrl = "https://i0.wp.com/ytimg.googleusercontent.com/vi/CJ3hfxxlF2Q/maxresdefault.jpg?resize=160,120" }
-            });
+            });*/
 
         }
     }

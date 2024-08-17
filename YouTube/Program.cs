@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using YouTube.MapperProfiles;
 using YouTube.Services;
 using YouTube.Validations;
+using Microsoft.AspNetCore.Identity;
+using FluentValidation.AspNetCore;
+using Data.Entities;
 namespace YouTube
 {
     public class Program
@@ -21,7 +24,14 @@ namespace YouTube
                 options.UseSqlServer(connectionString)
             );
 
+            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<YouTubeDbContext>();
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<YouTubeDbContext>();
+
             builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationClientsideAdapters();
+            builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddAutoMapper(typeof(AppProfile));
             builder.Services.AddHttpContextAccessor();
@@ -57,7 +67,8 @@ namespace YouTube
             app.UseAuthorization();
 
             app.UseSession();
-            
+
+            app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Video}/{action=Index}/{id?}");

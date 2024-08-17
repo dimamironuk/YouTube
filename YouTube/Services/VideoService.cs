@@ -21,10 +21,10 @@ namespace YouTube.Services
         {
             return context.Videos.ToList();
         }
-        public List<VideoDto> GetVideoDtos()
+        public List<VideoDto> GetVideoDtos(string userId)
         {
             var videoDtos = mapper.Map<List<VideoDto>>(context.Videos.ToList());
-            videoDtos.ForEach(video => video.UserNickname = context.Users.FirstOrDefault(u => u.Id == video.UserId).Nickname);
+            videoDtos.ForEach(video => video.UserNickname = context.Users.FirstOrDefault(x => x.Id == userId).Nickname);
             return videoDtos;
         }
 

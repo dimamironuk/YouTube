@@ -5,6 +5,7 @@ using Data.Data;
 using Data.Entities;
 using Newtonsoft.Json;
 using System.Net;
+using System.Security.Claims;
 
 
 namespace YouTube.Services
@@ -14,7 +15,7 @@ namespace YouTube.Services
         private readonly HttpContext httpContext;
         private readonly IMapper mapper;
         private readonly YouTubeDbContext context;
-
+       
         public UserService(IHttpContextAccessor contextAccessor, IMapper mapper, YouTubeDbContext context)
         {
             httpContext = contextAccessor.HttpContext!;
@@ -35,19 +36,16 @@ namespace YouTube.Services
             return users;
         }
         //GET
-        public UserShortInfoDto GetShortUser()
+        public UserShortInfoDto GetShortUser(string userId)
         {
+            var user = context.Users.FirstOrDefault(x => x.Id == userId);
 
-            var ids = httpContext.Request.Cookies["UserId"];
-            var id = JsonConvert.DeserializeObject<List<int>>(ids ?? "[]");
-            var user = id.Count != 0 ? context.Users.FirstOrDefault(x => x.Id == id.First()) : null;
-
-            return user != null ? mapper.Map<UserShortInfoDto>(user) : null;
+            return mapper.Map<UserShortInfoDto>(user);
         }
-        public UserDto GetUserDto(int id)
+        public UserDto GetUserDto(string userId)
         {
-            var user = context.Users.FirstOrDefault(x => x.Id == id);
-            return user != null ? mapper.Map<UserDto>(user) : null;
+            var user = context.Users.FirstOrDefault(x => x.Id == userId);
+            return mapper.Map<UserDto>(user);
         }
 
         //ADD

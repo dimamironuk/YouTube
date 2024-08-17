@@ -5,6 +5,7 @@ using Data.Data;
 using Core.Dtos;
 using Data.Entities;
 using YouTube.Services;
+using System.Security.Claims;
 
 namespace YouTube.Controllers
 {
@@ -12,6 +13,7 @@ namespace YouTube.Controllers
     {
         private readonly VideoService videoService;
         private readonly UserService userService;
+        private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         public VideoController(VideoService videoService, UserService userService)
         {
@@ -20,20 +22,20 @@ namespace YouTube.Controllers
         }
         public IActionResult Index()
         {
-            return View(videoService.GetVideoDtos());
+            return View(videoService.GetVideoDtos(UserId));
         }
         [HttpGet]
-        public IActionResult AddVideo(int id)
+        public IActionResult AddVideo(string id)
         {
             var user = userService.GetUserDto(id);
-            var videos = videoService.GetVideoDtos();
+            var videos = videoService.GetVideoDtos(UserId);
 
-           /* var model = new VideoDto
+            var model = new VideoDto
             {
-                UserId = userService.GetUsers().FirstOrDefault(u => u.Id == id).Id,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!,
                 UserNickname = user.Nickname,
-                DateOfPublication = DateTime.Now 
-            };*/
+                DateOfPublication = DateTime.Now
+            };
 
             ViewBag.CreateMode = true;
             ViewBag.User = user;
@@ -52,7 +54,7 @@ namespace YouTube.Controllers
             }
             model.Id = null;
             videoService.AddVideo(model);
-            return RedirectToAction("Index","User");
+            return RedirectToAction("Index", "User");
         }
         public IActionResult Delete(int id)
         {
@@ -63,7 +65,7 @@ namespace YouTube.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var video = videoService.GetVideoDtos().FirstOrDefault(v => v.Id == id);
+            var video = videoService.GetVideoDtos(UserId).FirstOrDefault(v => v.Id == id);
 
             if (video == null) return NotFound();
 
@@ -87,4 +89,4 @@ namespace YouTube.Controllers
             return RedirectToAction("Index");
         }
     }
-}
+    }

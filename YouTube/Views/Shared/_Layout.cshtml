@@ -1,6 +1,4 @@
-﻿@inject UserService userService
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,29 +23,7 @@
                         <button class="btn search-button" type="submit">Search</button>
                     </form>
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            @if (userService.GetShortUser() != null)
-                            {
-                                var userShortInfo = userService.GetShortUser();
-                                <span class="nav-link">
-                                    <img src="@userShortInfo.AvatarUrl" alt="User Avatar" class="avatar ms-2">
-                                    @userShortInfo.Nickname
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="nav-link">
-                                    <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="User Avatar" class="avatar ms-2">
-                                </span>
-                            }
-
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="User" asp-action="SignIn">Sign in</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="User" asp-action="SignUp">Sign up</a>
-                        </li>
+                        <partial name="_LoginPartial.cshtml" />
                     </ul>
                 </div>
             </div>
@@ -69,7 +45,7 @@
         </div>
     </div>
 
-   @*  <footer class="border-top footer text-muted mt-5">
+@*     <footer class="border-top footer text-muted mt-5">
         <div class="container">
             &copy; 2024 - YouTube - <a asp-area="" class="text-white">Privacy</a>
         </div>
@@ -81,4 +57,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

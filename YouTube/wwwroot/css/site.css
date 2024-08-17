@@ -26,14 +26,17 @@ body {
     background-color: #282828;
 }
 
-.navbar-brand, .nav-link {
-    color: #fff !important;
+.navbar-brand, .navbar-nav .nav-link, .navbar-toggler {
+    color: #fff;
 }
 
 .navbar-toggler {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+.navbar-nav .nav-link {
+    color: #fff !important; 
+}
 .search-bar {
     width: 50%;
     margin: auto;
@@ -50,16 +53,17 @@ body {
 
 .search-button {
     background-color: #dc3545;
-    border: 1px solid #dc3545; 
+    border: 1px solid #dc3545;
     border-radius: 2px;
     padding: 6px 12px;
-    color: #fff; 
+    color: #fff;
 }
 
     .search-button:hover {
-        background-color: #c82333; 
+        background-color: #c82333;
         border-color: #c82333;
     }
+
 .avatar {
     width: 42px;
     height: 42px;
@@ -79,16 +83,17 @@ main {
 }
 
 .main-content {
-    max-width: 100%; 
-    margin: 0 auto; 
-    padding: 20px; 
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
 }
+
 .sidebar {
     top: 50px;
     bottom: 0;
     left: 0;
     z-index: 100;
-    width: 250px; 
+    width: 250px;
     padding: 20px;
     background-color: #f8f9fa;
     overflow-y: auto;
@@ -108,7 +113,7 @@ main {
 .sidebar button {
     font-size: 0.875rem;
     background-color: #dc3545;
-    border-color: #dc3545; 
+    border-color: #dc3545;
     color: #fff;
 }
 
@@ -116,4 +121,3 @@ main {
         background-color: #c82333;
         border-color: #c82333;
     }
-

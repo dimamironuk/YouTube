@@ -9,7 +9,7 @@ namespace YouTube.Validations
         private YouTubeDbContext ctx = new YouTubeDbContext();
         public UserValidator()
         {
-            RuleFor(x => x.Name)
+           /* RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("{PropertyName} is not valid");
 
             RuleFor(x => x.Nickname)
@@ -28,7 +28,7 @@ namespace YouTube.Validations
 
             RuleFor(x => x.Birthday)
                 .NotEmpty().WithMessage("{PropertyName} is not valid")
-                .Must(ValidAge).WithMessage("User must be at least 12 years old.");
+                .Must(ValidAge).WithMessage("User must be at least 12 years old.");*/
         }
         private bool BeUniqueEmail(string email)
         {
