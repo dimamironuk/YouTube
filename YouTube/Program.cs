@@ -8,6 +8,7 @@ using YouTube.Validations;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
 using Data.Entities;
+using Core.Interfaces;
 namespace YouTube
 {
     public class Program
@@ -45,8 +46,8 @@ namespace YouTube
                 options.Cookie.IsEssential = true;
             });
 
-            builder.Services.AddScoped<UserService>();
-            builder.Services.AddScoped<VideoService>();
+            builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IVideoService, VideoService>();
 
             var app = builder.Build();
 

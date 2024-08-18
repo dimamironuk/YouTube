@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
 using Core.Dtos;
+using Core.Interfaces;
 using Data.Data;
 using Data.Entities;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ using System.Security.Claims;
 
 namespace YouTube.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly HttpContext httpContext;
         private readonly IMapper mapper;

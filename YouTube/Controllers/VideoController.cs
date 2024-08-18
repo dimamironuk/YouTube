@@ -6,16 +6,17 @@ using Core.Dtos;
 using Data.Entities;
 using YouTube.Services;
 using System.Security.Claims;
+using Core.Interfaces;
 
 namespace YouTube.Controllers
 {
     public class VideoController : Controller
     {
-        private readonly VideoService videoService;
-        private readonly UserService userService;
+        private readonly IVideoService videoService;
+        private readonly IUserService userService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public VideoController(VideoService videoService, UserService userService)
+        public VideoController(IVideoService videoService, IUserService userService)
         {
             this.videoService = videoService;
             this.userService = userService;

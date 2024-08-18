@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Core.Dtos;
+using Core.Interfaces;
 using Data.Data;
 using Data.Entities;
 
 namespace YouTube.Services
 {
-    public class VideoService
+    public class VideoService : IVideoService
     {
         private readonly YouTubeDbContext context;
         private readonly IMapper mapper;

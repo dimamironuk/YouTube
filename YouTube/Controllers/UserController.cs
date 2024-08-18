@@ -3,15 +3,16 @@ using Core.Dtos;
 using Newtonsoft.Json;
 using YouTube.Services;
 using System.Security.Claims;
+using Core.Interfaces;
 
 namespace YouTube.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserService userService;
-        private readonly VideoService videoService;
+        private readonly IUserService userService;
+        private readonly IVideoService videoService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-        public UserController(UserService userService, VideoService videoService)
+        public UserController(IUserService userService, IVideoService videoService)
         {
             this.userService = userService;
             this.videoService = videoService;
