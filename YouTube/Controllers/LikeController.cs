@@ -23,7 +23,7 @@ namespace YouTube.Controllers
                 VideoId = idVideo
             };
             likeService.AddOrRemoveLike(model);
-            return RedirectToAction("Revision", "Video", idVideo);
+            return RedirectToAction("Revision", "Video", new { idVideo = idVideo });
         }
     }
 }

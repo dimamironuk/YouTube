@@ -33,8 +33,15 @@ namespace YouTube.Controllers
 
         public IActionResult Subscriptions()
         {
-            return View(userService.GetUserDtos());
+            var allUsers = userService.GetUserDtos();
+
+            var subscribedUserIds = subscriberService.GetSubscriptions(UserId).Select(s => s.IdAuthor).ToList();
+
+            var subscribedUsers = allUsers.Where(user => subscribedUserIds.Contains(user.Id)).ToList();
+
+            return View(subscribedUsers);
         }
+
         [HttpGet]
 
 

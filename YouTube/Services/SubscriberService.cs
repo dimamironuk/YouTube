@@ -3,6 +3,7 @@ using Core.Dtos;
 using Core.Interfaces;
 using Data.Data;
 using Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace YouTube.Services
 {
@@ -34,7 +35,10 @@ namespace YouTube.Services
             context.Subscribers.Remove(GetSubscriber(idAuthor));
             context.SaveChanges();
         }
-
+        public IEnumerable<Subscriber> GetSubscriptions(string userId)
+        {
+            return context.Subscribers.Where(s => s.IdSubscriber == userId).ToList();
+        }
         public Subscriber GetSubscriber(string idUser)
         {
             return context.Subscribers.FirstOrDefault(s => s.IdSubscriber == idUser);
@@ -42,6 +46,11 @@ namespace YouTube.Services
         public bool IsSubscribed(string userId, string authorId)
         {
             return context.Subscribers.Any(s => s.IdSubscriber == userId && s.IdAuthor == authorId);
+        }
+
+        public List<SubscriberDto> GetMySubscribers(string idAuthor)
+        {
+            return mapper.Map<List<SubscriberDto>>(context.Subscribers.Where(s => s.IdAuthor == idAuthor));
         }
     }
 }

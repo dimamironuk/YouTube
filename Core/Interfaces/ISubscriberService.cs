@@ -10,6 +10,8 @@ namespace Core.Interfaces
 {
     public interface ISubscriberService
     {
+        public IEnumerable<Subscriber> GetSubscriptions(string userId);
+        public List<SubscriberDto> GetMySubscribers(string idAuthor);
         public int CountSubscriber(string idUser);
         public Subscriber GetSubscriber(string idUser);
         public void AddSubscriber(SubscriberDto model);
