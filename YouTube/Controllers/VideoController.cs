@@ -21,14 +21,21 @@ namespace YouTube.Controllers
             this.videoService = videoService;
             this.userService = userService;
         }
+        public IActionResult Revision(int idVideo)
+        {
+            var video = videoService.GetVideoDto(idVideo);
+            ViewData["Video"] = video;
+            ViewData["User"] = userService.GetUserDto(UserId) ;
+            return View(video);
+        }
         public IActionResult Index()
         {
-            return View(videoService.GetVideoDtos(UserId));
+            return View(videoService.GetVideoDtos());
         }
         [HttpGet]
-        public IActionResult AddVideo(string id)
+        public IActionResult AddVideo(string idUser)
         {
-            var user = userService.GetUserDto(id);
+            var user = userService.GetUserDto(idUser);
             var videos = videoService.GetVideoDtos(UserId);
 
             var model = new VideoDto

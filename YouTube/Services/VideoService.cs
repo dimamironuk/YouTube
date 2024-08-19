@@ -28,6 +28,11 @@ namespace YouTube.Services
             videoDtos.ForEach(video => video.UserNickname = context.Users.FirstOrDefault(x => x.Id == userId).Nickname);
             return videoDtos;
         }
+        public List<VideoDto> GetVideoDtos()
+        {
+            var videoDtos = mapper.Map<List<VideoDto>>(context.Videos.ToList());
+            return videoDtos;
+        }
 
         //GET
         public Video GetVideo(int id)
@@ -54,6 +59,11 @@ namespace YouTube.Services
         {
             context.Videos.Update(mapper.Map<Video>(model));
             context.SaveChanges();
+        }
+
+        public VideoDto GetVideoDto(int id)
+        {
+            return mapper.Map<VideoDto>(context.Videos.Find(id));
         }
     }
 }

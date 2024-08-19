@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
 using Data.Entities;
 using Core.Interfaces;
+using YouTube.SeedExtensions;
 namespace YouTube
 {
     public class Program
@@ -21,13 +22,17 @@ namespace YouTube
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
+
             builder.Services.AddDbContext<YouTubeDbContext>(options =>
                 options.UseSqlServer(connectionString)
             );
 
-            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<YouTubeDbContext>();
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<YouTubeDbContext>();
-
+            builder.Services.AddIdentity<User, IdentityRole>(options =>
+                options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultTokenProviders()
+                .AddDefaultUI() 
+                .AddEntityFrameworkStores<YouTubeDbContext>();
             builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 
             builder.Services.AddFluentValidationAutoValidation();
@@ -46,12 +51,19 @@ namespace YouTube
                 options.Cookie.IsEssential = true;
             });
 
-            builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IVideoService, VideoService>();
+            builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<ISubscriberService, SubscriberService>();
 
             var app = builder.Build();
 
-
+            using (var scope = app.Services.CreateScope())
+            {
+                scope.ServiceProvider.SeedRoles().Wait();
+                scope.ServiceProvider.SeedAdmin().Wait();
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

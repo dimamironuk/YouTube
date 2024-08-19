@@ -7,6 +7,9 @@ namespace Data.Data
     public class YouTubeDbContext : IdentityDbContext<User>
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
         public DbSet<Video> Videos { get; set; }
         public YouTubeDbContext() { }
         public YouTubeDbContext(DbContextOptions options) : base(options) { }

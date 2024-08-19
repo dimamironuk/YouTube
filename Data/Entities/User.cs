@@ -9,6 +9,8 @@ namespace Data.Entities
         public string AvatarUrl { get; set; }
         public DateTime Birthday { get; set; }
         public ICollection<Video>? Videos { get; set; }
+        public ICollection<Subscriber>? Subscribers { get; set; }
+
     }
 }
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(YouTubeDbContext))]
-    [Migration("20240816183227_NewDB")]
-    partial class NewDB
+    [Migration("20240819075108_AddLot")]
+    partial class AddLot
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,91 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Data.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CommentatorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateOfPublication")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IdCommentator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdVideo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TextComment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentatorId");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Data.Entities.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("Data.Entities.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IdAuthor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdSubscriber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Subscribers");
+                });
 
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
@@ -279,6 +364,35 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Data.Entities.Comment", b =>
+                {
+                    b.HasOne("Data.Entities.User", "Commentator")
+                        .WithMany()
+                        .HasForeignKey("CommentatorId");
+
+                    b.HasOne("Data.Entities.Video", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("VideoId");
+
+                    b.Navigation("Commentator");
+                });
+
+            modelBuilder.Entity("Data.Entities.Like", b =>
+                {
+                    b.HasOne("Data.Entities.Video", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.Entities.Subscriber", b =>
+                {
+                    b.HasOne("Data.Entities.User", null)
+                        .WithMany("Subscribers")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Data.Entities.Video", b =>
                 {
                     b.HasOne("Data.Entities.User", "User")
@@ -343,7 +457,16 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
+                    b.Navigation("Subscribers");
+
                     b.Navigation("Videos");
+                });
+
+            modelBuilder.Entity("Data.Entities.Video", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,7 +18,7 @@
                 <p><strong>Name:</strong> @Model.Name</p>
                 <p><strong>Email:</strong> @Model.Email</p>
                 <p><strong>Birthday:</strong> @Model.Birthday.ToShortDateString()</p>
-                <p><strong>Password:</strong> @Model.Password</p>
+                <p><strong>Password:</strong> @Model.Id</p>
             </div>
         </div>
         <div class="d-flex justify-content-between mt-3">
@@ -34,7 +34,7 @@
                 </a>
             </div>
             <div>
-                <a asp-controller="Video" asp-action="AddVideo" asp-route-id="@Model.Id" class="btn btn-success">
+                <a asp-controller="Video" asp-action="AddVideo" asp-route-idUser="@Model.Id" class="btn btn-success">
                     <i class="bi bi-plus"></i> Create new video
                 </a>
             </div>

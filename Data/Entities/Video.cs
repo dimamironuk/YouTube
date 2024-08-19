@@ -10,5 +10,8 @@
         public string VideoUrl { get; set; }
         public string PreviewUrl { get; set; }
         public DateTime DateOfPublication { get; set; }
+
+        public ICollection<Like>? Likes { get; set; }
+        public ICollection<Comment>? Comments { get; set; }
     }
 }
