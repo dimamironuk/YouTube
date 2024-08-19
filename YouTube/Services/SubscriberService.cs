@@ -37,7 +37,7 @@ namespace YouTube.Services
 
         public Subscriber GetSubscriber(string idUser)
         {
-            return context.Subscribers.Find(idUser);
+            return context.Subscribers.FirstOrDefault(s => s.IdSubscriber == idUser);
         }
         public bool IsSubscribed(string userId, string authorId)
         {

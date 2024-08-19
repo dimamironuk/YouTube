@@ -1,5 +1,6 @@
 ﻿using Core.Dtos;
 using Core.Interfaces;
+using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using YouTube.Services;
@@ -9,33 +10,36 @@ namespace YouTube.Controllers
     public class SubscriberController : Controller
     {
         private readonly ISubscriberService subscriberService;
+        private readonly IVideoService videoService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public SubscriberController(SubscriberService subscriberService)
+        public SubscriberController(ISubscriberService subscriberService, IVideoService videoService)
         {
             this.subscriberService = subscriberService;
+            this.videoService = videoService;
         }
         [HttpPost]
-        public IActionResult AddSubscriber(string idAuthor)
+        public IActionResult ToggleSubscription(string idUser, int idVideo)
         {
-            var model = new SubscriberDto
+            var subscriber = subscriberService.GetSubscriber(idUser);
+            if(idUser != videoService.GetVideo(idVideo).UserId)
             {
-                IdSubscriber = UserId,
-                IdAuthor = idAuthor.ToString()
-            };
-            subscriberService.AddSubscriber(model);
-            return RedirectToAction("Index", "Video", new { id = idAuthor });
-        }
-
-        [HttpPost]
-        public IActionResult RemoveSubscriber(string idAuthor)
-        {
-            var subscriber = subscriberService.GetSubscriber(UserId);
-            if (subscriber != null && subscriber.IdAuthor == idAuthor.ToString())
-            {
-                subscriberService.RemoveSubscriber(idAuthor);
+                if (subscriber != null)
+                {
+                    subscriberService.RemoveSubscriber(subscriber.IdSubscriber);
+                }
+                else
+                {
+                    var model = new SubscriberDto
+                    {
+                        IdSubscriber = UserId,
+                        IdAuthor = videoService.GetVideo(idVideo).UserId
+                    };
+                    subscriberService.AddSubscriber(model);
             }
-            return RedirectToAction("Index", "Video", new { id = idAuthor });
+            }
+
+            return RedirectToAction("Revision", "Video", new { idVideo = idVideo });
         }
     }
 }

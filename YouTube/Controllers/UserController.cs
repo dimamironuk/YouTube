@@ -11,11 +11,13 @@ namespace YouTube.Controllers
     {
         private readonly IUserService userService;
         private readonly IVideoService videoService;
+        private readonly ISubscriberService subscriberService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-        public UserController(IUserService userService, IVideoService videoService)
+        public UserController(IUserService userService, IVideoService videoService, ISubscriberService subscriberService)
         {
             this.userService = userService;
             this.videoService = videoService;
+            this.subscriberService = subscriberService;
         }
 
         public IActionResult Index()
@@ -24,6 +26,7 @@ namespace YouTube.Controllers
 
             var videos = user != null ? videoService.GetVideoDtos(UserId).Where(x => x.UserId == user.Id) : null;
             ViewBag.Videos = videos;
+            ViewBag.CountSubscriber = subscriberService.CountSubscriber(UserId);
 
             return user == null ? RedirectToAction("SignIn") : View(user);
         }

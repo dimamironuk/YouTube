@@ -43,7 +43,7 @@
         <div class="author-details">
             <p>@authorShortInfo.Nickname</p>
             <p>@subscriberService.CountSubscriber(authorShortInfo.Id) subscribers</p>
-            <form asp-controller="Subscriber" asp-action="AddSubscriber" method="post">
+            <form asp-controller="Subscriber" asp-action="ToggleSubscription" asp-route-idUser="@user.Id" asp-route-idVideo="@Model.Id" method="post">
                 <input type="hidden" name="idAuthor" value="@Model.UserId" />
                 <button type="submit" class="btn-subscribe">
                     @(isSubscribed ? "Unsubscribe" : "Subscribe")

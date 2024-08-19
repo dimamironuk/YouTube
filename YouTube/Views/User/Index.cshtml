@@ -1,6 +1,7 @@
 ﻿@model UserDto
 @{
     var videos = ViewBag.Videos;
+    var countSubscriber = ViewBag.CountSubscriber;
 }
 
 <h1>@Model.Nickname</h1>
@@ -18,7 +19,7 @@
                 <p><strong>Name:</strong> @Model.Name</p>
                 <p><strong>Email:</strong> @Model.Email</p>
                 <p><strong>Birthday:</strong> @Model.Birthday.ToShortDateString()</p>
-                <p><strong>Password:</strong> @Model.Id</p>
+                <p><strong>Subscriber:</strong> @countSubscriber</p>
             </div>
         </div>
         <div class="d-flex justify-content-between mt-3">
@@ -47,7 +48,7 @@
     {
         <div class="col-md-4 mb-4">
             <div class="card">
-                <a href="@video.VideoUrl" target="_blank">
+                <a asp-controller="Video" asp-action="Revision" asp-route-idVideo="@video.Id">
                     <div class="embed-responsive embed-responsive-16by9">
                         <img src="@video.PreviewUrl" class="card-img-top img-fluid video-preview" alt="Preview for @video.Title">
                     </div>
