@@ -5,24 +5,15 @@
 <table class="table admin-user-table">
     <thead>
         <tr class="table-dark">
-            <th scope="col">#</th>
             <th scope="col">Nickname</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
             <th scope="col">Avatar</th>
-            <th scope="col">Birthday</th>
-            <th scope="col">Password</th>
-            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model)
         {
             <tr>
-                <th scope="row">@user.Id</th>
                 <td>@user.Nickname</td>
-                <td>@user.Name</td>
-                <td>@user.Email</td>
                 <td>
                     @if (!string.IsNullOrEmpty(user.AvatarUrl))
                     {
@@ -32,16 +23,6 @@
                     {
                         <span>None</span>
                     }
-                </td>
-                <td>@user.Birthday.ToShortDateString()</td>
-                <td>@user.Password</td>
-                <td>
-                    <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" type="button" class="btn btn-danger">
-                        <i class="bi bi-trash3"></i>
-                    </a>
-                    <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id" type="button" class="btn btn-primary">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
                 </td>
             </tr>
         }

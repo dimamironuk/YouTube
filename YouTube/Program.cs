@@ -18,7 +18,7 @@ namespace YouTube
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            string? connectionString = builder.Configuration.GetConnectionString("LocalDb");
+            string? connectionString = builder.Configuration.GetConnectionString("YouTubeDbContextConnection");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

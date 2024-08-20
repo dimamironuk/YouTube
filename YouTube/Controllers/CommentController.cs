@@ -1,5 +1,6 @@
 ﻿using Core.Dtos;
 using Core.Interfaces;
+using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using YouTube.Services;
@@ -21,12 +22,28 @@ namespace YouTube.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddComment(CommentDto model)
+        public IActionResult AddComment(string CommentText, int VideoId)
         {
-            model.IdCommentator = UserId;
+            CommentText = CommentText?.Trim();
+
+            if (string.IsNullOrEmpty(CommentText))
+            {
+                TempData["ErrorMessage"] = "Comment cannot be empty.";
+                return RedirectToAction("Revision", "Video", new { idVideo = VideoId });
+            }
+
+            var model = new CommentDto()
+            {
+                IdCommentator = UserId,
+                IdVideo = VideoId,
+                TextComment = CommentText,
+                DateOfPublication = DateTime.Now
+            };
+
             commentService.AddComment(model);
-            return RedirectToAction("Index", "Video", new { id = model.IdVideo });
+            return RedirectToAction("Revision", "Video", new { idVideo = VideoId });
         }
+
 
         [HttpPost]
         public IActionResult Delete(int idComment)
