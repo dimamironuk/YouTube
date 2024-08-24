@@ -25,14 +25,22 @@ namespace YouTube.Services
         public List<VideoDto> GetVideoDtos(string userId)
         {
             var videoDtos = mapper.Map<List<VideoDto>>(context.Videos.ToList());
-            videoDtos.ForEach(video => video.UserNickname = context.Users.FirstOrDefault(x => x.Id == userId).Nickname);
+            videoDtos.ForEach(video => video.Nickname = context.Users.FirstOrDefault(x => x.Id == userId).Nickname);
             return videoDtos;
         }
         public List<VideoDto> GetVideoDtos()
         {
             var videoDtos = mapper.Map<List<VideoDto>>(context.Videos.ToList());
+
+            foreach (var videoDto in videoDtos)
+            {
+                var user = context.Users.FirstOrDefault(x => x.Id == videoDto.UserId);
+                videoDto.Nickname = user?.Nickname ?? "Unknown";
+            }
+
             return videoDtos;
         }
+
 
         //GET
         public Video GetVideo(int id)

@@ -45,9 +45,13 @@
 
     <!-- Author Info -->
     <div class="author-info">
-        <img src="@authorShortInfo.AvatarUrl" alt="Avatar" class="author-avatar" />
+        <a asp-controller="User" asp-action="Index" asp-route-id="@authorShortInfo.Id">
+            <img src="@authorShortInfo.AvatarUrl" alt="Avatar" class="author-avatar" />
+        </a>
         <div class="author-details">
-            <p>@authorShortInfo.Nickname</p>
+            <a asp-controller="User" asp-action="Index" asp-route-id="@authorShortInfo.Id">
+                <p>@authorShortInfo.Nickname</p>
+            </a>
             <p>@subscriberService.CountSubscriber(authorShortInfo.Id) subscribers</p>
             @if (user != null)
             {
@@ -64,6 +68,7 @@
             }
         </div>
     </div>
+
 </div>
 
 <!-- Comments Section -->

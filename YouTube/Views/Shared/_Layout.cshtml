@@ -18,10 +18,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <form class="d-flex search-bar mb-2 mb-lg-0">
-                        <input class="form-control me-2 search-input" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex search-bar mb-2 mb-lg-0" asp-controller="Search" asp-action="Index" method="get">
+                        <input class="form-control me-2 search-input" type="search" name="query" placeholder="Search" aria-label="Search">
                         <button class="btn search-button" type="submit">Search</button>
                     </form>
+
                     <ul class="navbar-nav ms-auto">
                         <partial name="_LoginPartial.cshtml" />
                     </ul>

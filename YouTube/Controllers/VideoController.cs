@@ -7,6 +7,7 @@ using Data.Entities;
 using YouTube.Services;
 using System.Security.Claims;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YouTube.Controllers
 {
@@ -41,7 +42,7 @@ namespace YouTube.Controllers
             var model = new VideoDto
             {
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!,
-                UserNickname = user.Nickname,
+                Nickname = user.Nickname,
                 DateOfPublication = DateTime.Now
             };
 

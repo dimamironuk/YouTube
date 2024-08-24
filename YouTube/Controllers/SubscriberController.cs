@@ -1,22 +1,27 @@
 ﻿using Core.Dtos;
 using Core.Interfaces;
 using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using YouTube.Services;
 
 namespace YouTube.Controllers
 {
+    [Authorize]
     public class SubscriberController : Controller
     {
         private readonly ISubscriberService subscriberService;
         private readonly IVideoService videoService;
+        private readonly IUserService userService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public SubscriberController(ISubscriberService subscriberService, IVideoService videoService)
+
+        public SubscriberController(ISubscriberService subscriberService, IVideoService videoService, IUserService userService)
         {
             this.subscriberService = subscriberService;
             this.videoService = videoService;
+            this.userService = userService;
         }
         [HttpPost]
         public IActionResult ToggleSubscription(string idUser, int idVideo)
@@ -35,7 +40,8 @@ namespace YouTube.Controllers
                         IdSubscriber = UserId,
                         IdAuthor = videoService.GetVideo(idVideo).UserId
                     };
-                    subscriberService.AddSubscriber(model);
+
+                    subscriberService.AddSubscriber(model, userService.GetUserDto(model.IdAuthor).Email);
             }
             }
 

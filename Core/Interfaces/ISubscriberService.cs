@@ -14,7 +14,7 @@ namespace Core.Interfaces
         public List<SubscriberDto> GetMySubscribers(string idAuthor);
         public int CountSubscriber(string idUser);
         public Subscriber GetSubscriber(string idUser);
-        public void AddSubscriber(SubscriberDto model);
+        public Task AddSubscriber(SubscriberDto model, string email);
         public void RemoveSubscriber(string idAuthor);
         public bool IsSubscribed(string userId, string authorId);
 

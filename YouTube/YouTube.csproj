@@ -4,11 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>1da10a18-3da6-41fa-aee8-305f8b1f0fdf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
 	  <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 	  <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+	  <PackageReference Include="MailKit" Version="4.7.1.1" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.7" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
@@ -27,6 +29,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

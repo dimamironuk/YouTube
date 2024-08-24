@@ -3,6 +3,8 @@ using Core.Dtos;
 using Core.Interfaces;
 using Data.Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace YouTube.Services
@@ -11,11 +13,13 @@ namespace YouTube.Services
     {
         private readonly YouTubeDbContext context;
         private readonly IMapper mapper;
+        private readonly IEmailSender emailSender;
 
-        public SubscriberService(YouTubeDbContext context, IMapper mapper)
+        public SubscriberService(YouTubeDbContext context, IMapper mapper, IEmailSender emailSender)
         {
             this.context = context;
             this.mapper = mapper;
+            this.emailSender = emailSender;
         }
 
         public int CountSubscriber(string idUser)
@@ -24,10 +28,15 @@ namespace YouTube.Services
             return count;
         }
 
-        public void AddSubscriber(SubscriberDto model)
+        public async Task AddSubscriber(SubscriberDto model, string email)
         {
             context.Subscribers.Add(mapper.Map<Subscriber>(model));
             context.SaveChanges();
+            var count = GetMySubscribers(model.IdAuthor).Count;
+            if (GetMySubscribers(model.IdAuthor).Count == 2)
+            {
+                await emailSender.SendEmailAsync(email, $"Congratulations, you now have {GetMySubscribers(model.IdAuthor).Count} subscribers", "<h1>You guys keep it up</h1>");
+            }
         }
 
         public void RemoveSubscriber(string idAuthor)

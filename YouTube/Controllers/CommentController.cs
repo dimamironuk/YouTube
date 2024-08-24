@@ -1,12 +1,14 @@
 ﻿using Core.Dtos;
 using Core.Interfaces;
 using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using YouTube.Services;
 
 namespace YouTube.Controllers
 {
+    [Authorize]
     public class CommentController : Controller
     {
         private readonly ICommentService commentService;
@@ -24,6 +26,9 @@ namespace YouTube.Controllers
         [HttpPost]
         public IActionResult AddComment(string CommentText, int VideoId)
         {
+            CommentText = CommentText?.Trim();
+            CommentText = CommentText?.Trim();
+            CommentText = CommentText?.Trim();
             CommentText = CommentText?.Trim();
 
             if (string.IsNullOrEmpty(CommentText))

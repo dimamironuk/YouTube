@@ -10,6 +10,8 @@ using FluentValidation.AspNetCore;
 using Data.Entities;
 using Core.Interfaces;
 using YouTube.SeedExtensions;
+using Core.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 namespace YouTube
 {
     public class Program
@@ -56,6 +58,9 @@ namespace YouTube
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<ISubscriberService, SubscriberService>();
+            builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<IEmailSender, EmailService>();
+
 
             var app = builder.Build();
 

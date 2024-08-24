@@ -1,10 +1,12 @@
 ﻿using Core.Dtos;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace YouTube.Controllers
 {
+    [Authorize]
     public class LikeController : Controller
     {
         private readonly ILikeService likeService;

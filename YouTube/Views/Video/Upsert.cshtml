@@ -8,7 +8,7 @@
 <h2>@ViewBag.Title</h2>
 <form enctype="multipart/form-data" method="post" asp-action="@(create ? "AddVideo" : "Edit")">
     <input type="hidden" asp-for="UserId" value="@user.Id" />
-    <input type="hidden" asp-for="UserNickname" value="@user.Nickname" />
+    <input type="hidden" asp-for="Nickname" value="@user.Nickname" />
     <input type="hidden" asp-for="DateOfPublication" value="@DateTime.Now" />
 
     <div class="form-group">
