@@ -20,7 +20,7 @@ namespace YouTube
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            string? connectionString = builder.Configuration.GetConnectionString("YouTubeDbContextConnection");
+            string? connectionString = builder.Configuration.GetConnectionString("LocalDb");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -60,6 +60,7 @@ namespace YouTube
             builder.Services.AddScoped<ISubscriberService, SubscriberService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped<IEmailSender, EmailService>();
+            builder.Services.AddScoped<IFilesService, FilesService>();
 
 
             var app = builder.Build();

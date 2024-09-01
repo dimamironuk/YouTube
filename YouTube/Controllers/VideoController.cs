@@ -13,14 +13,18 @@ namespace YouTube.Controllers
 {
     public class VideoController : Controller
     {
+        private readonly IMapper mapper;
         private readonly IVideoService videoService;
         private readonly IUserService userService;
+        private readonly IFilesService filesService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public VideoController(IVideoService videoService, IUserService userService)
+        public VideoController(IVideoService videoService, IUserService userService, IFilesService filesService, IMapper mapper)
         {
             this.videoService = videoService;
             this.userService = userService;
+            this.filesService = filesService;
+            this.mapper = mapper;
         }
         public IActionResult Revision(int idVideo)
         {
@@ -54,10 +58,15 @@ namespace YouTube.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddVideo(VideoDto model)
+        public async Task<IActionResult> AddVideo(VideoDto model)
         {
-
             model.Id = null;
+
+            //var entity = mapper.Map<Video>(model);
+
+            model.PreviewUrl = await filesService.SaveImageOrVideo(model.Preview, true);
+            model.VideoUrl = await filesService.SaveImageOrVideo(model.Video, false);
+
             videoService.AddVideo(model);
             return RedirectToAction("Index", "User");
         }
@@ -81,14 +90,18 @@ namespace YouTube.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(VideoDto model)
+        public async Task<IActionResult> Edit(VideoDto model)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.CreateMode = false;
                 return View("Upsert", model);
             }
-
+            if (model.Preview != null && model.Video != null)
+            {
+                model.PreviewUrl = await filesService.EditImageOrVideo(model.PreviewUrl, model.Preview, true);
+                model.VideoUrl = await filesService.EditImageOrVideo(model.VideoUrl, model.Video, false);
+            }
             videoService.EditVideo(model);
 
             return RedirectToAction("Index");

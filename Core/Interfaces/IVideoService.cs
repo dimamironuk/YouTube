@@ -16,7 +16,7 @@ namespace Core.Interfaces
         public VideoDto GetVideoDto(int id);
         public Video GetVideo(int id);
         public void AddVideo(VideoDto model);
-        public void RemuveVideo(int id);
+        public Task RemuveVideo(int id);
         public void EditVideo(VideoDto model);
     }
 }

@@ -10,11 +10,13 @@ namespace YouTube.Services
     {
         private readonly YouTubeDbContext context;
         private readonly IMapper mapper;
-
-        public VideoService(YouTubeDbContext context, IMapper mapper)
+        private readonly IFilesService filesService;
+        public VideoService(YouTubeDbContext context, IMapper mapper, IFilesService filesService)
         {
             this.context = context;
             this.mapper = mapper;
+            this.filesService = filesService;
+
         }
 
         // GET ALL
@@ -56,9 +58,13 @@ namespace YouTube.Services
         }
 
         // REMOVE    
-        public void RemuveVideo(int id)
+        public async Task RemuveVideo(int id)
         {
-            context.Videos.Remove(GetVideo(id));
+            var video = GetVideo(id);
+            if (video.PreviewUrl != null && video.VideoUrl != null)
+                await filesService.DeleteImageOrVideo(video.PreviewUrl);
+                await filesService.DeleteImageOrVideo(video.VideoUrl);
+            context.Videos.Remove(video);
             context.SaveChanges();
         }
 

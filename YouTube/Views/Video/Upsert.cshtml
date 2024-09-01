@@ -11,15 +11,29 @@
     <input type="hidden" asp-for="Nickname" value="@user.Nickname" />
     <input type="hidden" asp-for="DateOfPublication" value="@DateTime.Now" />
 
-    <div class="form-group">
+    @* <div class="form-group">
         <label>Video URL</label>
         <input asp-for="VideoUrl" type="text" class="form-control" placeholder="Enter Avatar Url">
         <span class="small text-danger" asp-validation-for="VideoUrl"></span>
+    </div> *@
+    <input hidden asp-for=VideoUrl />
+
+    <div class="col-6">
+        <label asp-for=Video class="form-label">Video</label>
+        <input asp-for=Video class="form-control" type="file" id="formFile" accept="video/*">
+        <span class="small text-danger" asp-validation-for="Video"></span>
     </div>
-    <div class="form-group">
+    @* <div class="form-group">
         <label>Preview Url</label>
         <input asp-for="PreviewUrl" type="text" class="form-control" placeholder="Enter Preview Url">
         <span class="small text-danger" asp-validation-for="PreviewUrl"></span>
+    </div> *@
+    <input hidden asp-for=PreviewUrl />
+
+    <div class="col-6">
+        <label asp-for=Preview class="form-label">Preview</label>
+        <input asp-for=Preview class="form-control" type="file" id="formFile" accept="image/*">
+        <span class="small text-danger" asp-validation-for="Preview"></span>
     </div>
     <div class="form-group">
         <label>Title</label>
